@@ -10,6 +10,10 @@ const HeaderLen = 2
 const MaxDataLen = 255
 const MaxMessageLen = MaxDataLen + HeaderLen
 
+func (cl_con *ClientConn) Close() {
+	cl_con.conn.Close()
+}
+
 func (cl_con ClientConn) RecieveMessage() (*message, error) {
 	msg := NewMessage()
 	header := [2]byte{}
