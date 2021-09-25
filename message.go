@@ -4,11 +4,11 @@ func typeSupported(t byte) bool {
 	return t <= TypeMask
 }
 
-type message struct {
+type Message struct {
 	fields map[byte][]byte
 }
 
-func (msg *message) AppendField(_type byte, p []byte) {
+func (msg *Message) AppendField(_type byte, p []byte) {
 	if typeSupported(_type) && len(p) > 0 {
 		if _, ok := msg.fields[_type]; !ok {
 			msg.fields[_type] = make([]byte, 0, len(p))
@@ -18,13 +18,13 @@ func (msg *message) AppendField(_type byte, p []byte) {
 
 }
 
-func NewMessage() *message {
-	return &message{
+func NewMessage() *Message {
+	return &Message{
 		fields: make(map[byte][]byte),
 	}
 }
 
-func (msg *message) GetField(_type byte) ([]byte, bool) {
+func (msg *Message) GetField(_type byte) ([]byte, bool) {
 	if typeSupported(_type) {
 		if _, ok := msg.fields[_type]; ok {
 			return msg.fields[_type], true

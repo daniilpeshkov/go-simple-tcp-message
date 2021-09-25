@@ -14,7 +14,7 @@ func (cl_con *ClientConn) Close() {
 	cl_con.conn.Close()
 }
 
-func (cl_con ClientConn) RecieveMessage() (*message, error) {
+func (cl_con ClientConn) RecieveMessage() (*Message, error) {
 	msg := NewMessage()
 	header := [2]byte{}
 	hasNext := true
@@ -40,7 +40,7 @@ func (cl_con ClientConn) RecieveMessage() (*message, error) {
 	return msg, nil
 }
 
-func (cl_con ClientConn) SendMessage(msg *message) error {
+func (cl_con ClientConn) SendMessage(msg *Message) error {
 	fieldsLeft := len(msg.fields)
 	buf := [MaxMessageLen]byte{}
 	for k, v := range msg.fields {
