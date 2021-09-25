@@ -25,8 +25,8 @@ func TestSend(t *testing.T) {
 		clientConn := NewClientConn(conn)
 		msg := NewMessage()
 
-		msg.AppendField(TypeName, []byte("User1"))
-		msg.AppendField(TypeText, []byte("Test Message"))
+		msg.AppendField(0, []byte("User1"))
+		msg.AppendField(1, []byte("Test Message"))
 		clientConn.SendMessage(msg)
 
 		wg.Done()

@@ -1,36 +1,11 @@
 package simpleTcpMessage
 
-import (
-	"fmt"
-)
-
-const (
-	TypeText     = 0
-	TypeFileName = 1
-	TypeFile     = 2
-	TypeDate     = 3
-	TypeName     = 4
-)
-
-var supportedTypes = map[byte]struct{}{
-	TypeText:     {},
-	TypeFileName: {},
-	TypeFile:     {},
-	TypeDate:     {},
-	TypeName:     {},
-}
-
 func typeSupported(t byte) bool {
-	_, ok := supportedTypes[t]
-	return ok
+	return t <= TypeMask
 }
 
 type message struct {
 	fields map[byte][]byte
-}
-
-func (msg message) String() string {
-	return fmt.Sprintf("Message:\nfrom: %s\ntext: %s\n", msg.fields[TypeName], msg.fields[TypeText])
 }
 
 func (msg *message) AppendField(_type byte, p []byte) {
