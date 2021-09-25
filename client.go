@@ -7,7 +7,5 @@ type ClientConn struct {
 }
 
 func NewClientConn(conn net.Conn) *ClientConn {
-	return &ClientConn{
-		conn: conn,
-	}
+	return &ClientConn{conn}
 }
