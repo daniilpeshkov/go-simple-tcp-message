@@ -24,9 +24,11 @@ func TestSend(t *testing.T) {
 		}
 		clientConn := NewClientConn(conn)
 		msg := NewMessage()
-
-		msg.AppendField(0, []byte("User1"))
-		msg.AppendField(1, []byte("Test Message"))
+		a := make([]byte, 1000)
+		b := make([]byte, 1000)
+		msg.AppendField(0, b)
+		msg.AppendField(1, a)
+		// msg.AppendField(1, []byte("Test Message"))
 		clientConn.SendMessage(msg)
 
 		wg.Done()
@@ -36,7 +38,8 @@ func TestSend(t *testing.T) {
 	clientConn := NewClientConn(conn)
 
 	msg, _ := clientConn.RecieveMessage()
-
-	t.Log(msg)
+	b, _ := msg.GetField(0)
+	a, _ := msg.GetField(1)
+	t.Log(fmt.Sprint(len(b)) + " " + fmt.Sprint((len(a))))
 	wg.Wait()
 }

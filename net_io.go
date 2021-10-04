@@ -64,7 +64,9 @@ func (cl_con ClientConn) SendMessage(msg *Message) error {
 			copy(buf[2:], v[:bytesToSend])
 			v = v[bytesToSend:]
 			bLeft -= bytesToSend
-			fieldsLeft -= 1
+			if bLeft == 0 {
+				fieldsLeft -= 1
+			}
 
 			_, err := cl_con.conn.Write(buf[:HeaderLen+bytesToSend])
 			if err != nil {
